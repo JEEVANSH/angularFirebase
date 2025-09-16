@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { FireBaseService } from './fire-base.service';
+import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'AngularFirebase';
+
+  reviews: any[] = [];
+
+  constructor(private firebaseService: FireBaseService) { }
+
+  ngOnInit(): void {
+    console.log('AppComponent ngOnInit fired'); 
+    this.firebaseService.getItems().subscribe((data) => {
+      this.reviews = data;
+    });
+  }
+
 }
